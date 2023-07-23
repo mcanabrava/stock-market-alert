@@ -30,11 +30,11 @@ http://api.marketstack.com/v1/intraday
     & offset = 0
 ```
 
-Given this, you will need to update the indexes.csv file with the indexes and ticker codes you want to monitor. Example lists can be found inside [TradingView](https://www.tradingview.com/markets/indices/quotes-major/), [Wikipedia](https://en.wikipedia.org/wiki/List_of_stock_market_indices) or other Financial Markets website.
+Given this, you will need to update the indexes.csv file with the indexes and ticker codes you want to monitor. Example lists can be found inside [TradingView](https://www.tradingview.com/markets/indices/quotes-major/), [Wikipedia](https://en.wikipedia.org/wiki/List_of_stock_market_indices) or other Financial Markets websites.
 
-3. Now, we will make API calls for each of the tickers to the API and temporarily store the results using the stock-market-alert notebook. Indexes with responses above the threshold (defined as a 3% varation between the opening price and current intraday price) with have their name and results stored inside a dictionary.
+3. Now, we will make API calls for each of the tickers to the API and temporarily store the results using the stock-market-alert notebook. Indexes with responses above the threshold (defined as a 3% varation between the opening price and current intraday price) will have their labels and results stored inside a dictionary.
 
-4. Still inside the notebook we will use Twilio APIs to send a summary of the above results, when they exist, to a target phone number. At the time being, Twilio offers ~15$ in credits and both SMS and WhatsApp APIs. In this project I decided to use SMS for simplification purposes as WhatsApp is not enabled in Twilio accounts by default, although the free credits would let me send ~3000 WhatsApp messages instead of ~250 SMS. It is recommended to do your own research as costs may vary by country.
+4. Still inside the notebook, we will use Twilio APIs to send a summary of the above results to a target phone number. At the time being, Twilio offers ~15$ in credits and the capability of sending messages both via WhatsApp and SMS APIs. In this project I decided to use the SMS one for simplification purposes as WhatsApp is not enabled in Twilio accounts by default. However, a "next step" to improving this project could be to enable the WhatsApp API instead, as the free credits would let me send ~3000 WhatsApp messages instead of ~250 SMS. It is recommended to do your own research as costs may vary by country.
 
 ![Success Sms](./images/success_sms.jpg)
 
@@ -42,4 +42,4 @@ Given this, you will need to update the indexes.csv file with the indexes and ti
 
 For this, it will be necessary to transform the notebook into a python file so we can upload the main.py, indexes.csv, and the env.cfg file to the python anywhere environment. After uploading the files, we can easily schedule the task to be run once a day (free account) or more granularly using a premium account.
 
-![Tasks](./images/tasks.jpg)
+![Tasks](./images/tasks.png)
