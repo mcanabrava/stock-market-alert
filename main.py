@@ -56,12 +56,13 @@ for ticker in df['Ticker']:
     else:
         print(f"Failed to fetch data for {ticker}. Status Code: {response.status_code}")
 
+"""
 # Manually add the specified items for 'DAX' and '000001' for testing purposes (after all I'm doing this on Sunday and the market is close)
 data_dict['000001'] = {
     'open': 10.4,
     'last': 10.82,
     'percent_diff': 4.04
-}
+}"""
 
 
 # Create an empty list to store the rows that meet the condition
@@ -76,19 +77,26 @@ for ticker, data in data_dict.items():
     if data['percent_diff'] < threshold_percent_lower or data['percent_diff'] > threshold_percent_higher:
          selected_rows.append(f"Ticker: {ticker} - Percentage Difference {data['percent_diff']:.2f}%")
 
-# Create a message with the selected_rows data
-message_body = "The following Indexes are fluctuating strongly:\n"
-for row in selected_rows:
-    message_body += f"{row}\n"
-    print(message_body)
+# Check if there are any selected rows before sending the message
+if selected_rows:
+    # Create a message with the selected_rows data
+    message_body = "The following Indexes are fluctuating strongly:\n"
+    for row in selected_rows:
+        message_body += f"{row}\n"
+        print(message_body)
 
-# Send the message via Twilio API
-client = Client(ACCOUNT_SID, AUTH_TOKEN)
-message = client.messages.create(
-    body=message_body,
-    from_=TWILIO_PHONE_NUMBER,
-    to=TARGET_PHONE_NUMBER
-)
+    # Send the message via Twilio API
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
+    message = client.messages.create(
+        body=message_body,
+        from_=TWILIO_PHONE_NUMBER,
+        to=TARGET_PHONE_NUMBER
+    )
 
-# Print the Twilio message SID for reference
-print(f"Message SID: {message.sid}")
+    # Print the Twilio message SID for reference
+    print(f"Message SID: {message.sid}")
+
+else:
+    print("No rows meet the condition, so no message is sent.")
+
+
